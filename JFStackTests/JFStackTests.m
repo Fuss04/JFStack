@@ -1,12 +1,13 @@
 //
-//  JFStackTests.m
-//  JFStackTests
+//  StackTests.m
+//  StackTests
 //
 //  Created by Jacob Fuss on 12/14/13.
 //  Copyright (c) 2013 Jacob Fuss. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
+#import "JFStack.h"
 
 @interface JFStackTests : XCTestCase
 
@@ -26,9 +27,26 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testStack
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    JFStack *stack = [[JFStack alloc] init];
+    
+    XCTAssertNil([stack pop], @"You cannot pop from a nil stack");
+    
+    [stack push:[NSNumber numberWithInt:1]];
+    
+    XCTAssert([stack peek] == [NSNumber numberWithInt:1], @"Top of stack is not correct.");
+    
+    [stack push:[NSNumber numberWithInt:2]];
+    [stack push:[NSNumber numberWithInt:3]];
+    [stack push:[NSNumber numberWithInt:4]];
+    
+    XCTAssert([stack pop] == [NSNumber numberWithInt:4], @"The top of the stack is wrong.");
+    
+    [stack push:nil];
+    
+    XCTAssert([stack peek] == [NSNumber numberWithInt:3], @"The top of the stack is different after pushing nil. You should not be able to push nil onto the stack.");
+    
 }
 
 @end
